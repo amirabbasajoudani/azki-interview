@@ -4,6 +4,7 @@ import font from '@/configs/local-font';
 import ThemeProvider from '@/providers/ThemeProvider';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import QueryClientProvider from '@/providers/ReacQueryProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,7 +24,7 @@ export default async function RootLayout({
       <body>
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            {children}
+            <QueryClientProvider>{children}</QueryClientProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
