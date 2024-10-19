@@ -26,6 +26,7 @@ import {
 import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import InfoBox from './components/InfoBox';
 import * as yup from 'yup';
 
 export default function Page() {
@@ -213,87 +214,30 @@ export default function Page() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                p: 3,
-                background: 'whitesmoke',
-                borderRadius: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='body1' color='textPrimary'>
-                  {sharedT('car_type')}:
-                </Typography>
-                <Typography variant='body2'>
-                  {InsuranceContext.carType}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='body1' color='textPrimary'>
-                  {sharedT('car_model')}:
-                </Typography>
-                <Typography variant='body2'>
-                  {InsuranceContext.carModel}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='body1' color='textPrimary'>
-                  {sharedT('previous_company')}:
-                </Typography>
-                <Typography variant='body2'>
-                  {InsuranceContext.previousCompany}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='body1' color='textPrimary'>
-                  {sharedT('third_party_discount_percentage')}:
-                </Typography>
-                <Typography variant='body2'>
-                  {InsuranceContext.thirdPartyDiscount}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant='body1' color='textPrimary'>
-                  {sharedT('accidents_discount_percentage')}:
-                </Typography>
-                <Typography variant='body2'>
-                  {InsuranceContext.accidentsDiscount}
-                </Typography>
-              </Box>
-            </Box>
+            <InfoBox
+              pairs={[
+                {
+                  key: `${sharedT('car_type')}:`,
+                  value: InsuranceContext.carType,
+                },
+                {
+                  key: `${sharedT('car_model')}:`,
+                  value: InsuranceContext.carModel,
+                },
+                {
+                  key: `${sharedT('previous_company')}:`,
+                  value: InsuranceContext.previousCompany,
+                },
+                {
+                  key: `${sharedT('third_party_discount_percentage')}:`,
+                  value: InsuranceContext.previousCompany,
+                },
+                {
+                  key: `${sharedT('accidents_discount_percentage')}:`,
+                  value: InsuranceContext.accidentsDiscount,
+                },
+              ]}
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
