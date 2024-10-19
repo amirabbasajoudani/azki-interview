@@ -3,6 +3,7 @@ import './globals.css';
 import font from '@/configs/local-font';
 import ThemeProvider from '@/providers/ThemeProvider';
 import { getLocale, getMessages } from 'next-intl/server';
+import AuthContextProvider from '@/providers/AuthContextProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import QueryClientProvider from '@/providers/ReacQueryProvider';
 
@@ -24,7 +25,9 @@ export default async function RootLayout({
       <body>
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            <QueryClientProvider>{children}</QueryClientProvider>
+            <QueryClientProvider>
+              <AuthContextProvider>{children}</AuthContextProvider>
+            </QueryClientProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
