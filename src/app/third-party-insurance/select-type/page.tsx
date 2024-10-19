@@ -74,7 +74,7 @@ export default function Page() {
               (apiData) => apiData.id === Number(formData.car_type)
             )?.title,
             carModel: data?.data
-              .find((apiData) => apiData.id === Number(formData.car_model))
+              .find((apiData) => apiData.id === Number(formData.car_type))
               ?.usages.find(
                 (apiData) => apiData.id === Number(formData.car_model)
               )?.title,
