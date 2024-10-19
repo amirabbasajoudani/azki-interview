@@ -35,6 +35,8 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           sx={{
             px: [2, 2, 6],
             py: 2,
+            gap: 2,
+            flexWrap: 'nowrap',
             gridTemplateColumns: isMobile ? '1fr' : `repeat(3, 1fr)`,
           }}
         >
@@ -46,19 +48,20 @@ const MainLayout = ({ children }: PropsWithChildren) => {
               height={24}
             />
           </Grid>
-          <Grid sm>
+          <Grid sm item>
             <Box>
               <Typography
                 variant='body1'
                 sx={{
                   fontWeight: 700,
+                  textAlign: 'center',
                 }}
               >
                 {t('platform_name')}
               </Typography>
             </Box>
           </Grid>
-          <Grid sm>
+          <Grid sm item>
             <Box>
               <Typography
                 variant='body1'
@@ -82,7 +85,15 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                       height={24}
                       alt='user_icon'
                     />
-                    <Typography variant='body1'>
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        maxWidth: '50%',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
                       {`${authState.firstName} ${authState.lastName}`}
                     </Typography>
                   </Box>
