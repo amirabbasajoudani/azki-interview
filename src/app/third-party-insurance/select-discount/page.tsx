@@ -230,7 +230,7 @@ export default function Page() {
                 },
                 {
                   key: `${sharedT('third_party_discount_percentage')}:`,
-                  value: InsuranceContext.previousCompany,
+                  value: InsuranceContext.thirdPartyDiscount,
                 },
                 {
                   key: `${sharedT('accidents_discount_percentage')}:`,
