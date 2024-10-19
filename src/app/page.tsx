@@ -1,95 +1,99 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import MainLayout from '@/layout/Main';
+import { Box, Card, Typography } from '@mui/material';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const t = useTranslations('/');
+  const router = useRouter();
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+    <MainLayout>
+      <Typography
+        variant='h6'
+        sx={{ fontWeight: 700, mb: 3, textAlign: ['center', 'center', 'left'] }}
+      >
+        {t('select_insurance_type')}
+      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 3,
+          justifyContent: ['center', 'center', 'start'],
+        }}
+      >
+        <Card
+          onClick={() => {
+            router.push('/third-party-insurance/select-type');
+          }}
+          sx={{
+            display: 'flex',
+            cursor: 'pointer',
+            borderRadius: 2,
+            border: '2px solid',
+            boxShadow: 'none',
+            borderColor: 'grey.200',
+            flexDirection: 'column',
+            flexShrink: 0,
+            flexBasis: '30%',
+            flexGrow: 0,
+            alignItems: 'center',
+            p: 2,
+            gap: 1,
+          }}
         >
           <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src='/images/icons/insurance.svg'
+            width={24}
+            height={24}
+            alt='third_party_insurance_icon'
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Typography variant='body2' sx={{ fontWeight: 700 }}>
+            {t('third_party')}
+          </Typography>
+        </Card>
+        <Card
+          sx={{
+            display: 'flex',
+            borderRadius: 2,
+            border: '2px solid',
+            boxShadow: 'none',
+            borderColor: 'grey.200',
+            cursor: 'pointer',
+            flexDirection: 'column',
+            flexBasis: '30%',
+            flexShrink: 0,
+            flexGrow: 0,
+            position: 'relative',
+            alignItems: 'center',
+            p: 2,
+            gap: 1,
+          }}
         >
           <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+            src='/images/icons/insurance.svg'
+            width={24}
+            height={24}
+            alt='third_party_insurance_icon'
           />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <Typography variant='body2' sx={{ fontWeight: 700 }}>
+            {t('body')}
+          </Typography>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              background: 'rgba(245, 245, 245, 0.7)',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 1,
+              cursor: 'not-allowed',
+            }}
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </Card>
+      </Box>
+    </MainLayout>
   );
 }

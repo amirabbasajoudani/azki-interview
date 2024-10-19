@@ -1,0 +1,47 @@
+{
+  "layout": {
+    "platform_name": "سامانه مقایسه و خرید آنلاین بیمه"
+  },
+  "/": {
+    "select_insurance_type": "انتخاب بیمه",
+    "third_party": "شخص ثالث",
+    "body": "بدنه"
+  },
+  "/login": {
+    "first_name": "نام",
+    "last_name": "نام خانوادگی",
+    "phone_number": "شماره موبایل",
+    "password": "رمز عبور"
+  },
+  "/third-party-insurance": {
+    "third_party_insurance": "بیمه شخص ثالث",
+    "body": "بدنه"
+  },
+  "/third-party-insurance/select-type": {
+    "select_car_type": "نوع و مدل خودروی خود را انتخاب کنید"
+  },
+  "/third-party-insurance/select-prev-company": {
+    "select_previous_company": "شرکت بیمه گر قبلی خود را در این بخش وارد کنید"
+  },
+  "/third-party-insurance/select-discount": {
+    "select_discount_percentage": "درصد تخفیف بیمه شخص ثالث و حوادث راننده را وارد کنید",
+    "selected_data": "اطلاعات انتخابی شما",
+    "fee_inquiry": "استعلام قیمت",
+    "agree": "موافقم"
+  },
+  "shared": {
+    "register": "ثبت نام",
+    "next_step": "مرحله بعد",
+    "back": "بازگشت",
+    "prev_step": "مرحله قبل",
+    "required_field": "فیلد اجباری",
+    "persian_only_error": "لطفا حروف فارسی وارد کنید",
+    "mobile_format_error": "شماره موبایل صحیح نیست",
+    "password_format_error": "رمز عبور باید بین 4 تا 10 کاراکتر لاتین باشد و حداقل یک عدد و حداقل یک حرف لاتین بزرگ و حداقل یک حرف کوچک لاتین داشته باشد",
+    "previous_company": "شرکت بیمه قبلی",
+    "car_type": "نوع خودرو",
+    "car_model": "مدل خودرو",
+    "third_party_discount_percentage": "درصد تخفیف ثالث",
+    "accidents_discount_percentage": "درصد تخفیف حوادث راننده"
+  }
+}
