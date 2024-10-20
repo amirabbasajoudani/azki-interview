@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: demo-docker-nextjs-dev
+    environment:
+      - WATCHPACK_POLLING=true
+      - NEXT_PUBLIC_BASE_URL=https://www.azki.com/api
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - '3000:3000'
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: demo-docker-nextjs
+    environment:
+      - WATCHPACK_POLLING=true
+      - NEXT_PUBLIC_BASE_URL=https://www.azki.com/api
+    ports:
+      - '3000:3000'
+
+volumes:
+  node_modules:
