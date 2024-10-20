@@ -8,11 +8,47 @@ import { PropsWithChildren } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import CarLogo from 'public/images/icons/car-green.svg';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useAuthContext } from '@/providers/AuthContextProvider'; // import { usePathname, useRouter } from 'next/navigation';
 import { usePathname, useRouter } from 'next/navigation';
+import {
+  useAuthDispatch,
+  handleAddAuth,
+} from '@/providers/AuthContextProvider';
+
+function retrievePersistedAuth():
+  | {
+      firstName: string;
+      lastName: string;
+      role: 'manager';
+      expireDate: string;
+    }
+  | undefined {
+  try {
+    const persistedAuth = JSON.parse(localStorage.getItem('auth') || '') as {
+      firstName: string;
+      lastName: string;
+      role: 'manager';
+      expireDate: string;
+    };
+
+    const currentDate = new Date().getTime();
+    if (Number(persistedAuth.expireDate) < currentDate) {
+      localStorage.removeItem('auth');
+      return undefined;
+    } else {
+      return persistedAuth;
+    }
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
+
 const MainLayout = ({ children }: PropsWithChildren) => {
   const theme = useTheme();
   const authState = useAuthContext();
+  const authDispatch = useAuthDispatch();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations('layout');
@@ -21,9 +57,18 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (!authState.firstName && pathname !== '/login') {
+      const persistedAuth = retrievePersistedAuth();
+      if (persistedAuth) {
+        handleAddAuth(authDispatch, {
+          firstName: persistedAuth.firstName,
+          lastName: persistedAuth.lastName,
+          role: 'manager',
+        });
+        return;
+      }
       router.push('/login');
     }
-  }, [authState, pathname, router]);
+  }, [authState, pathname, router, authDispatch]);
 
   return (
     <>
@@ -135,11 +180,25 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         </Box>
       </Box>
       <Box sx={{ pr: [0, 0, '30vw'], pb: ['20vh', '20vh', 0] }}>
-        <Box sx={{ px: [2, 2, 6] }}>
-          <Box sx={{ maxWidth: ['unset', 'unset', '40vw'], pl: [0, 0, 4] }}>
-            {children}
+        {!authState.firstName && pathname !== '/login' ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '50vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress color='success' />
           </Box>
-        </Box>
+        ) : (
+          <Box sx={{ px: [2, 2, 6] }}>
+            <Box sx={{ maxWidth: ['unset', 'unset', '40vw'], pl: [0, 0, 4] }}>
+              {children}
+            </Box>
+          </Box>
+        )}
       </Box>
     </>
   );

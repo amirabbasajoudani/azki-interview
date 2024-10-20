@@ -23,6 +23,18 @@ type FormInputs = {
   password: string;
 };
 
+function persistAuth(authState: {
+  firstName: string;
+  lastName: string;
+  role: 'manager';
+}) {
+  const anHourLater = new Date().getTime() + 60 * 60 * 1000;
+  localStorage.setItem(
+    'auth',
+    JSON.stringify({ ...authState, expireDate: anHourLater })
+  );
+}
+
 const LoginPage = () => {
   const t = useTranslations('/login');
   const sharedT = useTranslations('shared');
@@ -53,11 +65,14 @@ const LoginPage = () => {
   });
 
   const onSubmitHandler = (data: FormInputs) => {
-    handleAddAuth(authDispatch, {
+    const persistData = {
       firstName: data.first_name,
       lastName: data.last_name,
       role: 'manager',
-    });
+    } as const;
+
+    handleAddAuth(authDispatch, persistData);
+    persistAuth(persistData);
     router.push('/');
   };
 
@@ -77,91 +92,91 @@ const LoginPage = () => {
 
   return (
     <MainLayout>
-        <Typography
-          variant='h6'
-          sx={{
-            fontWeight: 700,
-            mb: 3,
-            textAlign: ['center', 'center', 'unset'],
-          }}
-        >
-          {sharedT('register')}
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
-            <Controller
-              name='first_name'
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  label={t('first_name')}
-                  error={Boolean(errors.first_name?.message)}
-                  helperText={errors.first_name?.message}
-                ></TextField>
-              )}
-            />
-            <Controller
-              name='last_name'
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  error={Boolean(errors.last_name?.message)}
-                  label={t('last_name')}
-                  helperText={errors.last_name?.message}
-                ></TextField>
-              )}
-            />
-          </Box>
+      <Typography
+        variant='h6'
+        sx={{
+          fontWeight: 700,
+          mb: 3,
+          textAlign: ['center', 'center', 'unset'],
+        }}
+      >
+        {sharedT('register')}
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
           <Controller
-            name='phone_number'
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                sx={{ mb: 2 }}
-                fullWidth
-                error={Boolean(errors.phone_number?.message)}
-                helperText={errors.phone_number?.message}
-                label={t('phone_number')}
-              ></TextField>
-            )}
-          />
-          <Controller
-            name='password'
+            name='first_name'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 fullWidth
-                sx={{ mb: 2 }}
-                error={Boolean(errors.password?.message)}
-                type='password'
-                helperText={errors.password?.message}
-                label={t('password')}
+                label={t('first_name')}
+                error={Boolean(errors.first_name?.message)}
+                helperText={errors.first_name?.message}
               ></TextField>
             )}
           />
-          <Box sx={{ textAlign: ['center', 'center', 'right'] }}>
-            <Button
-              type='submit'
-              variant='contained'
-              sx={{
-                borderRadius: 4,
-                display: 'inline-block',
-                color: 'white',
-                px: 5,
-                py: 1,
-              }}
-              color='success'
-            >
-              {sharedT('register')}
-            </Button>
-          </Box>
-        </form>
+          <Controller
+            name='last_name'
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                error={Boolean(errors.last_name?.message)}
+                label={t('last_name')}
+                helperText={errors.last_name?.message}
+              ></TextField>
+            )}
+          />
+        </Box>
+        <Controller
+          name='phone_number'
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              sx={{ mb: 2 }}
+              fullWidth
+              error={Boolean(errors.phone_number?.message)}
+              helperText={errors.phone_number?.message}
+              label={t('phone_number')}
+            ></TextField>
+          )}
+        />
+        <Controller
+          name='password'
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              sx={{ mb: 2 }}
+              error={Boolean(errors.password?.message)}
+              type='password'
+              helperText={errors.password?.message}
+              label={t('password')}
+            ></TextField>
+          )}
+        />
+        <Box sx={{ textAlign: ['center', 'center', 'right'] }}>
+          <Button
+            type='submit'
+            variant='contained'
+            sx={{
+              borderRadius: 4,
+              display: 'inline-block',
+              color: 'white',
+              px: 5,
+              py: 1,
+            }}
+            color='success'
+          >
+            {sharedT('register')}
+          </Button>
+        </Box>
+      </form>
     </MainLayout>
   );
 };
