@@ -50,7 +50,6 @@ export default function Page() {
 
   const router = useRouter();
   const { data, isLoading } = useGetCompanies();
-  console.log(data);
   return (
     <>
       <Typography
