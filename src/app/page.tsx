@@ -49,7 +49,10 @@ export default function Home() {
             height={24}
             alt='third_party_insurance_icon'
           />
-          <Typography variant='body2' sx={{ fontWeight: 700 }}>
+          <Typography
+            variant='body2'
+            sx={{ fontWeight: 700, whiteSpace: 'nowrap' }}
+          >
             {t('third_party')}
           </Typography>
         </Card>
